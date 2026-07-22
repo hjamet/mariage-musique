@@ -22,7 +22,7 @@
             scroll-behavior: smooth;
         }
 
-        h1, h2, h3 {
+        h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
         }
 
@@ -89,7 +89,6 @@
             
             <!-- HERO BANNER -->
             <section class="mb-10 bg-gradient-to-r from-amber-500/10 via-rose-500/10 to-amber-400/10 p-8 md:p-10 rounded-3xl border border-amber-200/60 custom-shadow relative overflow-hidden">
-                <!-- Glowing background circles -->
                 <div class="absolute -top-12 -right-12 w-48 h-48 bg-gradient-to-br from-amber-300/30 to-rose-300/30 rounded-full blur-2xl pointer-events-none"></div>
                 <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-gradient-to-tr from-rose-300/30 to-amber-300/30 rounded-full blur-2xl pointer-events-none"></div>
 
@@ -106,56 +105,54 @@
                 </div>
             </section>
 
-            <!-- SECTION SELECTEUR D'INSTRUMENT -->
+            <!-- BOUTONS DE COMMANDE DE VUE (TOGGLE MODE) -->
+            <div class="flex justify-center mb-6">
+                <div class="inline-flex p-1.5 bg-stone-200/70 backdrop-blur-md rounded-2xl border border-stone-300/50 shadow-inner">
+                    <button id="btnModePupitre" onclick="setViewMode('PUPITRE')" class="flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-amber-600 via-rose-600 to-amber-600 text-white shadow-md transition-all duration-200">
+                        <span>🎻</span> Vue par Pupitre / Instrument
+                    </button>
+                    <button id="btnModePiece" onclick="setViewMode('PIECE')" class="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-stone-600 hover:text-stone-900 hover:bg-stone-100/60 transition-all duration-200">
+                        <span>🎼</span> Vue par Pièce / Chant
+                    </button>
+                </div>
+            </div>
+
+            <!-- SECTION SELECTEUR (PUPITRE OU PIECE) -->
             <section class="mb-10 bg-white p-6 md:p-8 rounded-3xl custom-shadow border border-stone-100 transition-all hover:border-amber-200/60">
-                <div class="max-w-3xl mb-6">
-                    <h3 class="text-2xl font-bold text-stone-900 mb-2 flex items-center gap-2">
-                        <span>🎻</span> Sélectionnez votre pupitre
-                    </h3>
-                    <p class="text-stone-600 text-sm leading-relaxed">
-                        Choisissez votre instrument ou chœur ci-dessous pour afficher votre feuille de route personnelle et télécharger directement les partitions associées à chaque chant de la célébration.
-                    </p>
+                <!-- BLOC SELECTEUR PUPITRE -->
+                <div id="pupitreSelectorBlock">
+                    <div class="max-w-3xl mb-6">
+                        <h3 class="text-2xl font-bold text-stone-900 mb-2 flex items-center gap-2">
+                            <span>🎻</span> Sélectionnez votre pupitre
+                        </h3>
+                        <p class="text-stone-600 text-sm leading-relaxed">
+                            Choisissez votre instrument ou chœur ci-dessous pour afficher votre feuille de route personnelle et télécharger directement les partitions associées à chaque chant de la célébration.
+                        </p>
+                    </div>
+                    <div id="instrumentSelector" class="flex flex-wrap gap-2.5 pt-2">
+                        <!-- Généré dynamiquement en JS -->
+                    </div>
                 </div>
 
-                <!-- Grille de boutons de sélection -->
-                <div id="instrumentSelector" class="flex flex-wrap gap-2.5 pt-2">
-                    <!-- Généré dynamiquement en JS -->
+                <!-- BLOC SELECTEUR PIECE -->
+                <div id="pieceSelectorBlock" class="hidden">
+                    <div class="max-w-3xl mb-6">
+                        <h3 class="text-2xl font-bold text-stone-900 mb-2 flex items-center gap-2">
+                            <span>🎼</span> Sélectionnez une pièce / chant
+                        </h3>
+                        <p class="text-stone-600 text-sm leading-relaxed">
+                            Explorez la célébration morceau par morceau pour voir l'ensemble des instruments impliqués, leurs voix/rôles respectifs et accéder directement aux partitions.
+                        </p>
+                    </div>
+                    <div id="pieceSelector" class="flex flex-wrap gap-2.5 pt-2">
+                        <!-- Généré dynamiquement en JS -->
+                    </div>
                 </div>
             </section>
 
-            <!-- TABLEAU DYNAMIQUE D'ATTRIBUTION DES VOIX ET PARTITIONS -->
-            <section id="attributionSection" class="space-y-6">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-3xl custom-shadow border border-stone-100">
-                    <div>
-                        <div class="flex items-center gap-2.5">
-                            <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-r from-amber-500 to-rose-500 shadow-sm animate-pulse"></span>
-                            <h3 id="currentSelectionTitle" class="text-2xl font-bold text-stone-800">Conducteur Général</h3>
-                        </div>
-                        <p id="currentSelectionSubtitle" class="text-stone-500 text-sm mt-1">Feuille de route & Partitions pour faire vibrer la messe !</p>
-                    </div>
-
-                    <div id="quickStats" class="flex items-center gap-3">
-                        <span id="interventionsBadge" class="px-4 py-1.5 bg-gradient-to-r from-amber-50 to-rose-50 text-amber-900 rounded-full text-xs font-bold tracking-wide border border-amber-200/80 shadow-xs">
-                            14 moments liturgiques
-                        </span>
-                    </div>
-                </div>
-
-                <div class="overflow-x-auto bg-white rounded-3xl custom-shadow border border-stone-100">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-stone-50/80 border-b border-stone-200 text-stone-500 uppercase text-xs tracking-wider">
-                                <th class="p-4 w-16 text-center">N°</th>
-                                <th class="p-4">Chant / Moment Liturgique</th>
-                                <th id="thVoixOrInst" class="p-4">Instruments Mobilisés</th>
-                                <th class="p-4 text-right">Partition</th>
-                            </tr>
-                        </thead>
-                        <tbody id="attributionTableBody" class="divide-y divide-stone-100">
-                            <!-- Contenu injecté dynamiquement -->
-                        </tbody>
-                    </table>
-                </div>
+            <!-- CONTENEUR D'AFFICHAGE DYNAMIQUE -->
+            <section id="displayContainer" class="space-y-6">
+                <!-- Contenu dynamique injecté en JS -->
             </section>
 
         </main>
@@ -215,20 +212,62 @@
             }
         };
 
+        let currentViewMode = "PUPITRE";
         let selectedInstrument = "ALL";
+        let selectedSongId = "ALL";
 
-        function initSelector() {
+        function getSongInstrumentDetails(songId) {
+            const details = [];
+            Object.keys(appData.instruments).forEach(inst => {
+                if (appData.instruments[inst][songId]) {
+                    details.push({
+                        instrument: inst,
+                        role: appData.instruments[inst][songId]
+                    });
+                }
+            });
+            return details;
+        }
+
+        function setViewMode(mode) {
+            currentViewMode = mode;
+            const btnPupitre = document.getElementById('btnModePupitre');
+            const btnPiece = document.getElementById('btnModePiece');
+            const pupitreBlock = document.getElementById('pupitreSelectorBlock');
+            const pieceBlock = document.getElementById('pieceSelectorBlock');
+
+            if (mode === 'PUPITRE') {
+                btnPupitre.className = "flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-amber-600 via-rose-600 to-amber-600 text-white shadow-md transition-all duration-200";
+                btnPiece.className = "flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-stone-600 hover:text-stone-900 hover:bg-stone-100/60 transition-all duration-200";
+                pupitreBlock.classList.remove('hidden');
+                pieceBlock.classList.add('hidden');
+            } else {
+                btnPiece.className = "flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-amber-600 via-rose-600 to-amber-600 text-white shadow-md transition-all duration-200";
+                btnPupitre.className = "flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-stone-600 hover:text-stone-900 hover:bg-stone-100/60 transition-all duration-200";
+                pupitreBlock.classList.add('hidden');
+                pieceBlock.classList.remove('hidden');
+            }
+
+            renderSelectors();
+            renderView();
+        }
+
+        function renderSelectors() {
+            initPupitreSelector();
+            initPieceSelector();
+        }
+
+        function initPupitreSelector() {
             const container = document.getElementById('instrumentSelector');
+            if (!container) return;
             container.innerHTML = '';
 
-            // Bouton "Conducteur Général"
             const allBtn = document.createElement('button');
             allBtn.className = `pill-btn px-5 py-2.5 rounded-full text-sm font-semibold border border-stone-200 bg-white text-stone-700 hover:bg-stone-50 ${selectedInstrument === 'ALL' ? 'active' : ''}`;
             allBtn.innerText = "✨ Conducteur Général (Tous)";
             allBtn.onclick = () => selectInstrument('ALL');
             container.appendChild(allBtn);
 
-            // Boutons pour chaque instrument
             Object.keys(appData.instruments).forEach(inst => {
                 const btn = document.createElement('button');
                 btn.className = `pill-btn px-4 py-2 rounded-full text-sm font-medium border border-stone-200 bg-white text-stone-700 hover:bg-stone-50 ${selectedInstrument === inst ? 'active' : ''}`;
@@ -238,87 +277,298 @@
             });
         }
 
-        function selectInstrument(instName) {
-            selectedInstrument = instName;
-            initSelector(); // Re-render pills state
-            renderTable();
+        function initPieceSelector() {
+            const container = document.getElementById('pieceSelector');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const allBtn = document.createElement('button');
+            allBtn.className = `pill-btn px-5 py-2.5 rounded-full text-sm font-semibold border border-stone-200 bg-white text-stone-700 hover:bg-stone-50 ${selectedSongId === 'ALL' ? 'active' : ''}`;
+            allBtn.innerText = "🎼 Toutes les pièces (14)";
+            allBtn.onclick = () => selectSong('ALL');
+            container.appendChild(allBtn);
+
+            appData.songs.forEach(song => {
+                const btn = document.createElement('button');
+                btn.className = `pill-btn px-4 py-2 rounded-full text-sm font-medium border border-stone-200 bg-white text-stone-700 hover:bg-stone-50 ${selectedSongId === song.id ? 'active' : ''}`;
+                btn.innerText = song.title;
+                btn.onclick = () => selectSong(song.id);
+                container.appendChild(btn);
+            });
         }
 
-        function renderTable() {
-            const tbody = document.getElementById('attributionTableBody');
-            const title = document.getElementById('currentSelectionTitle');
-            const subtitle = document.getElementById('currentSelectionSubtitle');
-            const thVoixOrInst = document.getElementById('thVoixOrInst');
-            const interventionsBadge = document.getElementById('interventionsBadge');
+        function selectInstrument(instName) {
+            selectedInstrument = instName;
+            initPupitreSelector();
+            renderView();
+        }
 
-            tbody.innerHTML = '';
+        function selectSong(songId) {
+            selectedSongId = songId;
+            initPieceSelector();
+            renderView();
+        }
 
-            if (selectedInstrument === 'ALL') {
-                title.innerText = "Conducteur Général 🎶";
-                subtitle.innerText = "Feuille de route & Partitions pour faire vibrer la messe !";
-                thVoixOrInst.innerText = "Instruments Mobilisés";
-                interventionsBadge.innerText = `${appData.songs.length} moments liturgiques`;
+        function selectInstrumentAndSwitch(instName) {
+            selectedInstrument = instName;
+            setViewMode('PUPITRE');
+        }
 
-                appData.songs.forEach(song => {
-                    const tr = document.createElement('tr');
-                    tr.className = "hover:bg-amber-50/40 transition-colors";
-                    tr.innerHTML = `
-                        <td class="p-4 text-center font-semibold text-amber-700 text-sm">${song.id}</td>
-                        <td class="p-4 font-bold text-stone-800">${song.title}</td>
-                        <td class="p-4">
-                            <div class="flex flex-wrap gap-1.5">
-                                ${song.instruments.map(inst => `<span class="px-2.5 py-1 bg-stone-100 text-stone-700 rounded-md text-xs font-medium border border-stone-200/60">${inst}</span>`).join('')}
-                            </div>
-                        </td>
-                        <td class="p-4 text-right">
-                            ${getDownloadButtonHTML(song.file, song.title)}
-                        </td>
-                    `;
-                    tbody.appendChild(tr);
-                });
+        function selectSongAndSwitch(songId) {
+            selectedSongId = songId;
+            setViewMode('PIECE');
+        }
+
+        function renderView() {
+            if (currentViewMode === 'PUPITRE') {
+                renderPupitreView();
             } else {
-                title.innerText = `Fiche Pupitre : ${selectedInstrument} ✨`;
-                subtitle.innerText = `Attribution exacte des voix et partitions pour le pupitre ${selectedInstrument}.`;
-                thVoixOrInst.innerText = "Voix / Rôle à Jouer";
-
-                const instVoices = appData.instruments[selectedInstrument];
-                const activeSongs = appData.songs.filter(song => instVoices[song.id]);
-
-                interventionsBadge.innerText = `${activeSongs.length} / ${appData.songs.length} interventions`;
-
-                if (activeSongs.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="4" class="p-8 text-center text-stone-400 italic">Aucune intervention prévue pour cet instrument. Profitez du spectacle ! 🥳</td></tr>`;
-                    return;
-                }
-
-                activeSongs.forEach(song => {
-                    const role = instVoices[song.id];
-                    const tr = document.createElement('tr');
-                    tr.className = "hover:bg-amber-50/40 transition-colors";
-                    tr.innerHTML = `
-                        <td class="p-4 text-center font-semibold text-amber-700 text-sm">${song.id}</td>
-                        <td class="p-4 font-bold text-stone-800">${song.title}</td>
-                        <td class="p-4">
-                            <span class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-amber-100 to-rose-100 text-amber-900 rounded-full text-xs font-bold uppercase tracking-wider border border-amber-200/80 shadow-xs">
-                                ${role}
-                            </span>
-                        </td>
-                        <td class="p-4 text-right">
-                            ${getDownloadButtonHTML(song.file, song.title)}
-                        </td>
-                    `;
-                    tbody.appendChild(tr);
-                });
+                renderPieceView();
             }
         }
 
-        function getDownloadButtonHTML(filename, songTitle) {
+        function renderPupitreView() {
+            const displayArea = document.getElementById('displayContainer');
+            if (!displayArea) return;
+
+            if (selectedInstrument === 'ALL') {
+                displayArea.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-3xl custom-shadow border border-stone-100">
+                            <div>
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-r from-amber-500 to-rose-500 shadow-sm animate-pulse"></span>
+                                    <h3 class="text-2xl font-bold text-stone-800">Conducteur Général 🎶</h3>
+                                </div>
+                                <p class="text-stone-500 text-sm mt-1">Feuille de route & Partitions pour faire vibrer la messe !</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="px-4 py-1.5 bg-gradient-to-r from-amber-50 to-rose-50 text-amber-900 rounded-full text-xs font-bold tracking-wide border border-amber-200/80 shadow-xs">
+                                    ${appData.songs.length} moments liturgiques
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto bg-white rounded-3xl custom-shadow border border-stone-100">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-stone-50/80 border-b border-stone-200 text-stone-500 uppercase text-xs tracking-wider">
+                                        <th class="p-4 w-16 text-center">N°</th>
+                                        <th class="p-4">Chant / Moment Liturgique</th>
+                                        <th class="p-4">Instruments Mobilisés</th>
+                                        <th class="p-4 text-right">Partition</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-stone-100">
+                                    ${appData.songs.map(song => `
+                                        <tr class="hover:bg-amber-50/40 transition-colors">
+                                            <td class="p-4 text-center font-semibold text-amber-700 text-sm">${song.id}</td>
+                                            <td class="p-4 font-bold text-stone-800 cursor-pointer hover:text-amber-700 transition-colors" onclick="selectSongAndSwitch(${song.id})">${song.title}</td>
+                                            <td class="p-4">
+                                                <div class="flex flex-wrap gap-1.5">
+                                                    ${song.instruments.map(inst => `
+                                                        <button onclick="selectInstrument('${inst}')" class="px-2.5 py-1 bg-stone-100 hover:bg-amber-100 text-stone-700 hover:text-amber-900 rounded-md text-xs font-medium border border-stone-200/60 transition-colors">
+                                                            ${inst}
+                                                        </button>
+                                                    `).join('')}
+                                                </div>
+                                            </td>
+                                            <td class="p-4 text-right">
+                                                ${getDownloadButtonHTML(song.file, song.title)}
+                                            </td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            } else {
+                const instVoices = appData.instruments[selectedInstrument];
+                const activeSongs = appData.songs.filter(song => instVoices && instVoices[song.id]);
+
+                displayArea.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-3xl custom-shadow border border-stone-100">
+                            <div>
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-r from-amber-500 to-rose-500 shadow-sm animate-pulse"></span>
+                                    <h3 class="text-2xl font-bold text-stone-800">Fiche Pupitre : ${selectedInstrument} ✨</h3>
+                                </div>
+                                <p class="text-stone-500 text-sm mt-1">Attribution exacte des voix et partitions pour le pupitre ${selectedInstrument}.</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="px-4 py-1.5 bg-gradient-to-r from-amber-50 to-rose-50 text-amber-900 rounded-full text-xs font-bold tracking-wide border border-amber-200/80 shadow-xs">
+                                    ${activeSongs.length} / ${appData.songs.length} interventions
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto bg-white rounded-3xl custom-shadow border border-stone-100">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-stone-50/80 border-b border-stone-200 text-stone-500 uppercase text-xs tracking-wider">
+                                        <th class="p-4 w-16 text-center">N°</th>
+                                        <th class="p-4">Chant / Moment Liturgique</th>
+                                        <th class="p-4">Voix / Rôle à Jouer</th>
+                                        <th class="p-4 text-right">Partition</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-stone-100">
+                                    ${activeSongs.length === 0 ? `
+                                        <tr><td colspan="4" class="p-8 text-center text-stone-400 italic">Aucune intervention prévue pour cet instrument. Profitez du spectacle ! 🥳</td></tr>
+                                    ` : activeSongs.map(song => {
+                                        const role = instVoices[song.id];
+                                        return `
+                                            <tr class="hover:bg-amber-50/40 transition-colors">
+                                                <td class="p-4 text-center font-semibold text-amber-700 text-sm">${song.id}</td>
+                                                <td class="p-4 font-bold text-stone-800 cursor-pointer hover:text-amber-700 transition-colors" onclick="selectSongAndSwitch(${song.id})">${song.title}</td>
+                                                <td class="p-4">
+                                                    <span class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-amber-100 to-rose-100 text-amber-900 rounded-full text-xs font-bold uppercase tracking-wider border border-amber-200/80 shadow-xs">
+                                                        ${role}
+                                                    </span>
+                                                </td>
+                                                <td class="p-4 text-right">
+                                                    ${getDownloadButtonHTML(song.file, song.title)}
+                                                </td>
+                                            </tr>
+                                        `;
+                                    }).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function renderPieceView() {
+            const displayArea = document.getElementById('displayContainer');
+            if (!displayArea) return;
+
+            if (selectedSongId === 'ALL') {
+                displayArea.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-3xl custom-shadow border border-stone-100">
+                            <div>
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-r from-amber-500 to-rose-500 shadow-sm animate-pulse"></span>
+                                    <h3 class="text-2xl font-bold text-stone-800">Ensemble des Pièces Liturgiques 🎼</h3>
+                                </div>
+                                <p class="text-stone-500 text-sm mt-1">Vue d'ensemble détaillée de tous les chants et des répartitions instrumentales.</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="px-4 py-1.5 bg-gradient-to-r from-amber-50 to-rose-50 text-amber-900 rounded-full text-xs font-bold tracking-wide border border-amber-200/80 shadow-xs">
+                                    ${appData.songs.length} pièces au programme
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            ${appData.songs.map(song => {
+                                const instDetails = getSongInstrumentDetails(song.id);
+                                return `
+                                    <div class="bg-white p-6 rounded-3xl custom-shadow border border-stone-100 space-y-4 hover:border-amber-200/80 transition-all">
+                                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-stone-100">
+                                            <div class="flex items-center gap-3">
+                                                <span class="w-9 h-9 rounded-2xl bg-amber-100 text-amber-900 font-extrabold flex items-center justify-center text-sm shadow-xs border border-amber-200/80">
+                                                    ${song.id}
+                                                </span>
+                                                <div>
+                                                    <h4 class="text-lg font-bold text-stone-900 cursor-pointer hover:text-amber-700 transition-colors" onclick="selectSong(${song.id})">${song.title}</h4>
+                                                    <p class="text-xs text-stone-500 font-medium">${instDetails.length} pupitre(s) / voix mobilisé(s)</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <button onclick="selectSong(${song.id})" class="px-3 py-1.5 bg-stone-100 hover:bg-amber-100 text-stone-700 hover:text-amber-900 rounded-xl text-xs font-semibold transition-colors">
+                                                    🔍 Voir détail
+                                                </button>
+                                                ${getDownloadButtonHTML(song.file, song.title)}
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <h5 class="text-[11px] uppercase font-bold text-stone-400 tracking-wider mb-2.5">Répartition des pupitres & rôles :</h5>
+                                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                                                ${instDetails.map(item => `
+                                                    <div onclick="selectInstrumentAndSwitch('${item.instrument}')" class="cursor-pointer group flex items-center justify-between p-2.5 bg-stone-50/80 hover:bg-amber-50/60 rounded-xl border border-stone-100 hover:border-amber-200 text-xs transition-all">
+                                                        <span class="font-bold text-stone-800 group-hover:text-amber-900 flex items-center gap-1.5">
+                                                            <span class="text-amber-600">🎵</span> ${item.instrument}
+                                                        </span>
+                                                        <span class="px-2 py-0.5 bg-gradient-to-r from-amber-100 to-rose-100 text-amber-900 rounded-md font-semibold text-[11px] border border-amber-200/50">
+                                                            ${item.role}
+                                                        </span>
+                                                    </div>
+                                                `).join('')}
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                const song = appData.songs.find(s => s.id === selectedSongId);
+                if (!song) return;
+                const instDetails = getSongInstrumentDetails(song.id);
+
+                displayArea.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="bg-white p-6 md:p-8 rounded-3xl custom-shadow border border-stone-100 space-y-6">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-stone-100">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <span class="px-3 py-1 bg-amber-100 text-amber-900 font-extrabold rounded-full text-xs tracking-wide border border-amber-200/80">
+                                            Pièce Liturgique N° ${song.id}
+                                        </span>
+                                        <span class="text-xs text-stone-500 font-medium">✨ Messe de Mariage</span>
+                                    </div>
+                                    <h3 class="text-2xl md:text-3xl font-extrabold text-stone-900 tracking-tight">${song.title}</h3>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    ${getDownloadButtonHTML(song.file, song.title, true)}
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-sm font-bold text-stone-800 uppercase tracking-wider mb-4 flex items-center gap-2">
+                                    <span>🎺</span> Répartition complète des pupitres & voix (${instDetails.length})
+                                </h4>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                                    ${instDetails.map(item => `
+                                        <div onclick="selectInstrumentAndSwitch('${item.instrument}')" class="cursor-pointer group flex items-center justify-between p-4 bg-gradient-to-r from-stone-50 to-amber-50/30 hover:from-amber-50/60 hover:to-rose-50/40 rounded-2xl border border-stone-100 hover:border-amber-200 transition-all shadow-xs">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-9 h-9 rounded-xl bg-white text-amber-700 flex items-center justify-center font-bold text-base shadow-xs border border-amber-100 group-hover:scale-105 transition-transform">
+                                                    🎵
+                                                </div>
+                                                <div>
+                                                    <span class="font-bold text-stone-900 text-base group-hover:text-amber-900 block">${item.instrument}</span>
+                                                    <span class="text-[11px] text-stone-400 group-hover:text-amber-700">Cliquer pour voir la fiche du pupitre</span>
+                                                </div>
+                                            </div>
+                                            <span class="px-3.5 py-1.5 bg-gradient-to-r from-amber-100 via-rose-100 to-amber-100 text-amber-900 rounded-full text-xs font-bold shadow-xs border border-amber-200/80">
+                                                ${item.role}
+                                            </span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function getDownloadButtonHTML(filename, songTitle, isLarge = false) {
             if (!filename) {
                 return `<span class="text-xs text-stone-400 italic">Non disponible</span>`;
             }
+            const paddingClass = isLarge ? "px-5 py-2.5 text-sm" : "px-3.5 py-1.5 text-xs";
             return `
-                <a href="${filename}" download="${filename}" onclick="handleDownload(event, '${filename}', '${songTitle}')" class="download-btn inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-amber-50/80 text-amber-900 border border-amber-200 rounded-xl text-xs font-semibold shadow-xs">
-                    <svg class="w-3.5 h-3.5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="${filename}" download="${filename}" onclick="handleDownload(event, '${filename}', '${songTitle}')" class="download-btn inline-flex items-center gap-1.5 ${paddingClass} bg-amber-50/80 text-amber-900 border border-amber-200 rounded-xl font-semibold shadow-xs">
+                    <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                     </svg>
                     Partition
@@ -331,8 +581,7 @@
         }
 
         window.onload = function() {
-            initSelector();
-            renderTable();
+            setViewMode('PUPITRE');
         };
     </script>
 </body>
