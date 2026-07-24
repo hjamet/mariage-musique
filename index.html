@@ -59,6 +59,34 @@
             border-color: var(--accent-gold);
             box-shadow: 0 4px 15px rgba(184, 144, 80, 0.15);
         }
+
+        .accordion-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+            opacity: 0;
+        }
+
+        .accordion-content.expanded {
+            grid-template-rows: 1fr;
+            opacity: 1;
+        }
+
+        .accordion-inner {
+            overflow: hidden;
+        }
+
+        .monologue-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .monologue-btn:hover {
+            transform: translateY(-2px);
+            background-color: var(--accent-gold);
+            color: #ffffff;
+            border-color: var(--accent-gold);
+            box-shadow: 0 4px 15px rgba(184, 144, 80, 0.25);
+        }
         
         .fade-in-section {
             animation: fadeIn 0.8s ease-out forwards;
@@ -115,32 +143,44 @@
                     </h2>
                     <div class="text-[#4a403c] text-base md:text-lg leading-relaxed font-medium space-y-5 mb-10 text-justify">
                         <p style="opacity: 1;">
-                            "Très cher.e.s musicien.ne.s, bienvenue sur ce site ! Vous y trouverez l'ensemble des partitions, les attributions par instrument, et toutes les informations nécessaires pour la coordination musicale de la messe."
+                            Très cher.e.s musicien.ne.s, bienvenue sur ce site ! Vous y trouverez l'ensemble des partitions, les attributions par instrument, et toutes les informations nécessaires pour la coordination musicale de la messe.
                         </p>
-                        <p style="opacity: 0.9;">
-                            "Tout a été soigneusement organisé pour que chacun puisse s'y retrouver. D'ailleurs, quelle organisation, sapristi. C'est fou quand on y pense. Ça promet décidément d'être un mariage exceptionnel ! Faut dire qu'avec les deux spécimens qu'on a... Une planification exceptionnelle, une gestion de main de maître... non il n'y a pas à dire, ils savent ce qu'ils font."
-                        </p>
-                        <p style="opacity: 0.8;">
-                            "Et puis, il y a de la rigueur, de la discipline ; C'est structuré, voilà. C'est structuré. Je cherchais le mot, c'était \"structuré\"."
-                        </p>
-                        <p style="opacity: 0.7;">
-                            "D'ailleurs, c'est pour ça que je l'ai écrit, notez bien. Ils ont même rédigé un petit texte sur le site, ça a dû leur prendre un temps fou. Et puis, oh ! C'est dynamique, il y a des petits boutons cliquables un peu partout. Ah oui, il n'y a pas à dire, ils se sont donné du mal. Ils doivent avoir une sacrée équipe sous le coude. Faut dire que 3 sœurs et 2 frères à exploiter, ça fait de la main d'œuvre."
-                        </p>
-                        <p style="opacity: 0.55;">
-                            "Après, il y en a des plus prolifiques que d'autres. C'est pas pour dénoncer, mais bon. Y'en a qui créent des sites incroyables, peaufinent le design, ajoutent des jolies animations, et il y en a d'autres qui testent le traiteur. Comprenez : « il y en a qui se tuent au travail et d'autres qui sont payés à manger des truffes de caviar au safran ». Sauf qu'ils ne sont pas payés, mais vous avez l'idée. Je les vois d'ici, tandis que je m'échine, péniblement, à rédiger cet indispensable texte de présentation du site. Eux, pendant ce temps, à engloutir des merveilles de raffinerie gustative, à faire disparaître des montagnes de petits gâteaux à la crème, de verrines de mousse de homard à la fleur de sel des Carpates, de macarons fourrés au beurre de truffe blanche d'Alba, et à se gaver de petits fours. C'est traître, un petit four, d'ailleurs. On le prend du bout des doigts, on croque, et paf, de la pâte feuilletée partout. Sur la veste. Sur la cravate. Sur la moquette aux immenses motifs psychédéliques marron et orange."
-                        </p>
-                        <p style="opacity: 0.4;">
-                            "Je ne sais pas qui valide ces motifs. Si on les fixe trop longtemps, ça donne presque le vertige. On finit par lever les yeux pour chercher un point fixe. L'horizon, par exemple. C'est un réflexe. Y'a toujours quelqu'un pour s'enflammer quand il voit l'horizon, d'ailleurs. « Oh regarde, on distingue très bien les Alpes ! »"
-                        </p>
-                        <p style="opacity: 0.3;">
-                            "C'est faux. C'était de la buée sur le hublot. Il le sait. Tout le monde le sait. Mais on hoche la tête quand même, par politesse. On opine."
-                        </p>
-                        <p style="opacity: 0.2;">
-                            "C'est curieux comme mot, « opiner ». Vous trouvez pas que ça sonne comme un petit animal sauvage ? Un opine. Un opine des bois. Un petit rongeur timide au museau frétillant, qui se nourrirait exclusivement de miettes de pâte feuilletée. Scritch, scritch."
-                        </p>
-                        <p style="opacity: 0.12;">
-                            "Bon. Je m'égare. Enfin, je crois. À ce stade, honnêtement, je ne sais plus trop. Est-ce que ce texte sert à quelque chose ? Je commence à en douter sérieusement. Il y avait une idée au départ, j'en suis presque sûr. Un truc avec un mariage. Et un site. Le site était beau, hein ? Il était beau. Structuré, même. C'était le mot. Enfin je crois. C'est un peu comme quand on marche dans un couloir très long et qu'on se demande si on avance ou si c'est le couloir qui recule. En tout cas, si vous êtes arrivé jusqu'ici, chapeau, parce que franchement je ne sais plus vraiment le pourquoi du comment. Ou l'inverse. Je devrais probablement m'arrêter là. Oui. C'est ce que je vais faire. M'arrêter. Voilà. C'est fait. Enfin presque. Là j'ai encore dit quelque chose. Et là aussi. C'est plus compliqué que prévu, de ne rien..."
-                        </p>
+
+                        <div id="heroMonologueMore" class="accordion-content">
+                            <div class="accordion-inner space-y-5 pt-1">
+                                <p style="opacity: 0.9;">
+                                    Tout a été soigneusement organisé pour que chacun puisse s'y retrouver. D'ailleurs, quelle organisation, sapristi. C'est fou quand on y pense. Ça promet décidément d'être un mariage exceptionnel ! Faut dire qu'avec les deux spécimens qu'on a... Une planification exceptionnelle, une gestion de main de maître... non il n'y a pas à dire, ils savent ce qu'ils font.
+                                </p>
+                                <p style="opacity: 0.8;">
+                                    Et puis, il y a de la rigueur, de la discipline ; C'est structuré, voilà. C'est structuré. Je cherchais le mot, c'était « structuré ».
+                                </p>
+                                <p style="opacity: 0.7;">
+                                    D'ailleurs, c'est pour ça que je l'ai écrit, notez bien. Ils ont même rédigé un petit texte sur le site, ça a dû leur prendre un temps fou. Et puis, oh ! C'est dynamique, il y a des petits boutons cliquables un peu partout. Ah oui, il n'y a pas à dire, ils se sont donné du mal. Ils doivent avoir une sacrée équipe sous le coude. Faut dire que 3 sœurs et 2 frères à exploiter, ça fait de la main d'œuvre.
+                                </p>
+                                <p style="opacity: 0.55;">
+                                    Après, il y en a des plus prolifiques que d'autres. C'est pas pour dénoncer, mais bon. Y'en a qui créent des sites incroyables, peaufinent le design, ajoutent des jolies animations, et il y en a d'autres qui testent le traiteur. Comprenez : « il y en a qui se tuent au travail et d'autres qui sont payés à manger des truffes de caviar au safran ». Sauf qu'ils ne sont pas payés, mais vous avez l'idée. Je les vois d'ici, tandis que je m'échine, péniblement, à rédiger cet indispensable texte de présentation du site. Eux, pendant ce temps, à engloutir des merveilles de raffinerie gustative, à faire disparaître des montagnes de petits gâteaux à la crème, de verrines de mousse de homard à la fleur de sel des Carpates, de macarons fourrés au beurre de truffe blanche d'Alba, et à se gaver de petits fours. C'est traître, un petit four, d'ailleurs. On le prend du bout des doigts, on croque, et paf, de la pâte feuilletée partout. Sur la veste. Sur la cravate. Sur la moquette aux immenses motifs psychédéliques marron et orange.
+                                </p>
+                                <p style="opacity: 0.4;">
+                                    Je ne sais pas qui valide ces motifs. Si on les fixe trop longtemps, ça donne presque le vertige. On finit par lever les yeux pour chercher un point fixe. L'horizon, par exemple. C'est un réflexe. Y'a toujours quelqu'un pour s'enflammer quand il voit l'horizon, d'ailleurs. « Oh regarde, on distingue très bien les Alpes ! »
+                                </p>
+                                <p style="opacity: 0.3;">
+                                    C'est faux. C'était de la buée sur le hublot. Il le sait. Tout le monde le sait. Mais on hoche la tête quand même, par politesse. On opine.
+                                </p>
+                                <p style="opacity: 0.2;">
+                                    C'est curieux comme mot, « opiner ». Vous trouvez pas que ça sonne comme un petit animal sauvage ? Un opine. Un opine des bois. Un petit rongeur timide au museau frétillant, qui se nourrirait exclusivement de miettes de pâte feuilletée. Scritch, scritch.
+                                </p>
+                                <p style="opacity: 0.12;">
+                                    Bon. Je m'égare. Enfin, je crois. À ce stade, honnêtement, je ne sais plus trop. Est-ce que ce texte sert à quelque chose ? Je commence à en douter sérieusement. Il y avait une idée au départ, j'en suis presque sûr. Un truc avec un mariage. Et un site. Le site était beau, hein ? Il était beau. Structuré, même. C'était le mot. Enfin je crois. C'est un peu comme quand on marche dans un couloir très long et qu'on se demande si on avance ou si c'est le couloir qui recule. En tout cas, si vous êtes arrivé jusqu'ici, chapeau, parce que franchement je ne sais plus vraiment le pourquoi du comment. Ou l'inverse. Je devrais probablement m'arrêter là. Oui. C'est ce que je vais faire. M'arrêter. Voilà. C'est fait. Enfin presque. Là j'ai encore dit quelque chose. Et là aussi. C'est plus compliqué que prévu, de ne rien...
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center pt-2">
+                            <button id="btnToggleMonologue" onclick="toggleMonologue()" class="monologue-btn inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold text-[#b89050] bg-[#fcf8f2] border border-[#b89050]/50 shadow-sm group">
+                                <span id="lblToggleMonologue">Lire le mot d'accueil complet</span>
+                                <span id="icoToggleMonologue" class="inline-block transition-transform duration-300 transform group-hover:translate-y-0.5">⌄</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="flex justify-center mt-8">
                         <a href="https://open.spotify.com/playlist/3Rol6zOWh8NyNF9fsxPIyz?utm_source=whatsapp&pi=ZHoNZiYLS0CIA" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 bg-[#7a3e4c] hover:bg-[#5a2e38] text-white font-bold text-sm md:text-base rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
@@ -200,11 +240,6 @@
                 <!-- Contenu dynamique injecté en JS -->
             </section>
 
-            <!-- CONTENEUR D'AFFICHAGE DYNAMIQUE -->
-            <section id="displayContainer" class="space-y-6">
-                <!-- Contenu dynamique injecté en JS -->
-            </section>
-
         </main>
     </div>
 
@@ -226,6 +261,25 @@
     </footer>
 
     <script>
+        function toggleMonologue() {
+            const container = document.getElementById('heroMonologueMore');
+            const label = document.getElementById('lblToggleMonologue');
+            const icon = document.getElementById('icoToggleMonologue');
+            
+            if (!container || !label || !icon) return;
+            
+            const isExpanded = container.classList.contains('expanded');
+            if (isExpanded) {
+                container.classList.remove('expanded');
+                label.textContent = "Lire le mot d'accueil complet";
+                icon.style.transform = "rotate(0deg)";
+            } else {
+                container.classList.add('expanded');
+                label.textContent = "Réduire le mot d'accueil";
+                icon.style.transform = "rotate(180deg)";
+            }
+        }
+
         const appData = {
             songs: [
                 { id: 1, title: "1. Entrée", instruments: ["Harmonium"], file: null },
