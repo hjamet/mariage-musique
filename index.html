@@ -117,13 +117,16 @@
                         </p>
                     </div>
                 </div>
-                <div class="flex items-center gap-4">
-                    <a href="https://open.spotify.com/playlist/3Rol6zOWh8NyNF9fsxPIyz?utm_source=whatsapp&pi=ZHoNZiYLS0CIA" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#7a3e4c] hover:bg-[#5a2e38] text-white rounded-full text-xs font-bold shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg">
+                <div class="flex items-center gap-3 md:gap-4">
+                    <a href="Livret_Partitions_Mariage.pdf" download="Livret_Partitions_Mariage.pdf" class="inline-flex items-center gap-2 px-4 md:px-5 py-2.5 bg-gradient-to-r from-[#b89050] to-[#9c7538] hover:from-[#9c7538] hover:to-[#7a5925] text-white rounded-full text-xs font-bold shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg">
+                        📥 Télécharger le livret complet (PDF)
+                    </a>
+                    <a href="https://open.spotify.com/playlist/3Rol6zOWh8NyNF9fsxPIyz?utm_source=whatsapp&pi=ZHoNZiYLS0CIA" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 md:px-5 py-2.5 bg-[#7a3e4c] hover:bg-[#5a2e38] text-white rounded-full text-xs font-bold shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg">
                         🎧 Playlist Spotify
                     </a>
-                    <div class="hidden md:flex items-center">
-                        <span class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#f4eae7] text-[#7a3e4c] rounded-full text-xs font-bold shadow-sm border border-[#e8d5d1]">
-                            🎵 Pour une équipe musicale de choc !
+                    <div class="hidden lg:flex items-center">
+                        <span class="inline-flex items-center gap-2 px-4 py-2 bg-[#f4eae7] text-[#7a3e4c] rounded-full text-xs font-bold shadow-sm border border-[#e8d5d1]">
+                            🎵 Équipe musicale de choc !
                         </span>
                     </div>
                 </div>
@@ -182,8 +185,11 @@
                             </button>
                         </div>
                     </div>
-                    <div class="flex justify-center mt-8">
-                        <a href="https://open.spotify.com/playlist/3Rol6zOWh8NyNF9fsxPIyz?utm_source=whatsapp&pi=ZHoNZiYLS0CIA" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 bg-[#7a3e4c] hover:bg-[#5a2e38] text-white font-bold text-sm md:text-base rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <div class="flex flex-wrap justify-center gap-4 mt-8">
+                        <a href="Livret_Partitions_Mariage.pdf" download="Livret_Partitions_Mariage.pdf" class="inline-flex items-center gap-3 px-7 py-3.5 bg-gradient-to-r from-[#b89050] to-[#8c672b] hover:from-[#9c7538] hover:to-[#7a5925] text-white font-bold text-sm md:text-base rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                            <span>📥</span> Télécharger le livret complet (PDF)
+                        </a>
+                        <a href="https://open.spotify.com/playlist/3Rol6zOWh8NyNF9fsxPIyz?utm_source=whatsapp&pi=ZHoNZiYLS0CIA" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-7 py-3.5 bg-[#7a3e4c] hover:bg-[#5a2e38] text-white font-bold text-sm md:text-base rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
                             <span>🎧</span> Écouter la Playlist sur Spotify
                         </a>
                     </div>
@@ -282,20 +288,20 @@
 
         const appData = {
             songs: [
-                { id: 1, title: "1. Entrée", instruments: ["Harmonium"], file: null },
-                { id: 2, title: "2. Debout resplendis", instruments: ["Violoncelle", "Flûte", "Saxophone", "Cajón", "Chœur"], file: "02 - Debout resplendis.pdf" },
-                { id: 3, title: "3. Messe St-Jean : Gloria", instruments: ["Harmonium", "Chœur"], file: "03 - Messe_Saint_Jean (Gloria+Agnus).pdf" },
-                { id: 4, title: "4. Psaume 148", instruments: ["Violoncelle", "Chœur"], file: "04 - louez-le-seigneur-Psaume 148.pdf" },
-                { id: 5, title: "5. Resucito", instruments: ["Cajón", "Saxophone", "Chœur", "Guitare"], file: "05 - Resucito.pdf" },
-                { id: 6, title: "6. Esprit de lumière", instruments: ["Violon", "Flûte", "Violoncelle", "Chœur"], file: "06 - Esprit_de_lumiere_esprit_createur.pdf" },
-                { id: 7, title: "7. Laudate Dominum", instruments: ["Saxophone", "Chœur"], file: "07 - Laudate_Dominum_Taize.pdf" },
-                { id: 8, title: "8. Accueille au creux de tes mains", instruments: ["Violon", "Violoncelle", "Chœur"], file: "08 - Accueille aux creux de tes mains - 4 voix mixtes.pdf" },
-                { id: 9, title: "9. Vivre d’amour", instruments: ["Violoncelle", "Chœur"], file: "09 - Vivre_d_amour.pdf" },
-                { id: 10, title: "10. Sanctus (Messe St-Paul)", instruments: ["Violoncelle", "Violon", "Cajón", "Chœur"], file: "10 - sanctus_de_saint_paul.pdf" },
-                { id: 11, title: "11. Messe St-Jean : Agnus", instruments: ["Harmonium", "Chœur"], file: "11 - Messe_Saint_Jean (Gloria+Agnus).pdf" },
-                { id: 12, title: "12. Tu fais ta demeure en nous", instruments: ["Harmonium", "Chœur"], file: "12 - tu fais ta demeure en nous.pdf" },
-                { id: 13, title: "13. Marie, Mère de Dieu", instruments: ["Violoncelle", "Violon", "Chœur"], file: "13 - Marie_Mere_de_Dieu.pdf" },
-                { id: 14, title: "14. Pour tes merveilles", instruments: ["Cajón", "Saxophone", "Violoncelle", "Violon", "Chœur", "Guitare"], file: "14 - Pour-tes-merveilles.pdf" }
+                { id: 1, title: "1. Entrée", key: "Libre / Improvisation", instruments: ["Harmonium"], file: null },
+                { id: 2, title: "2. Debout resplendis", key: "Mi mineur (1#)", instruments: ["Violoncelle", "Flûte", "Saxophone", "Cajón", "Chœur"], file: "02 - Debout resplendis.pdf" },
+                { id: 3, title: "3. Messe St-Jean : Gloria", key: "Ré mineur (1b)", instruments: ["Harmonium", "Chœur"], file: "03 - Messe_Saint_Jean (Gloria+Agnus).pdf" },
+                { id: 4, title: "4. Psaume 148", key: "Ré mineur (1b)", instruments: ["Violoncelle", "Chœur"], file: "04 - louez-le-seigneur-Psaume 148.pdf" },
+                { id: 5, title: "5. Resucito", key: "Sol mineur (2b) [capo 3]", instruments: ["Cajón", "Saxophone", "Chœur", "Guitare"], file: "05 - Resucito.pdf" },
+                { id: 6, title: "6. Esprit de lumière", key: "Fa majeur (1b)", instruments: ["Violon", "Flûte", "Violoncelle", "Chœur"], file: "06 - Esprit_de_lumiere_esprit_createur.pdf" },
+                { id: 7, title: "7. Laudate Dominum", key: "La mineur (0)", instruments: ["Saxophone", "Chœur"], file: "07 - Laudate_Dominum_Taize.pdf" },
+                { id: 8, title: "8. Accueille au creux de tes mains", key: "Mi mineur (1#)", instruments: ["Violon", "Violoncelle", "Chœur"], file: "08 - Accueille aux creux de tes mains - 4 voix mixtes.pdf" },
+                { id: 9, title: "9. Vivre d’amour", key: "Mib majeur (3b)", instruments: ["Violoncelle", "Chœur"], file: "09 - Vivre_d_amour.pdf" },
+                { id: 10, title: "10. Sanctus (Messe St-Paul)", key: "La mineur (0) [éolien]", instruments: ["Violoncelle", "Violon", "Cajón", "Chœur"], file: "10 - sanctus_de_saint_paul.pdf" },
+                { id: 11, title: "11. Messe St-Jean : Agnus", key: "Ré mineur (1b)", instruments: ["Harmonium", "Chœur"], file: "11 - Messe_Saint_Jean (Gloria+Agnus).pdf" },
+                { id: 12, title: "12. Tu fais ta demeure en nous", key: "Mi mineur (1#)", instruments: ["Harmonium", "Chœur"], file: "12 - tu fais ta demeure en nous.pdf" },
+                { id: 13, title: "13. Marie, Mère de Dieu", key: "Mi mineur (1#)", instruments: ["Violoncelle", "Violon", "Chœur"], file: "13 - Marie_Mere_de_Dieu.pdf" },
+                { id: 14, title: "14. Pour tes merveilles", key: "Ré mineur (1b)", instruments: ["Cajón", "Saxophone", "Violoncelle", "Violon", "Chœur", "Guitare"], file: "14 - Pour-tes-merveilles.pdf" }
             ],
             instruments: {
                 "Flûte": { 
@@ -502,6 +508,7 @@
                                     <tr class="bg-[#fcf8f2] border-b border-[#e8d5d1] text-[#4a403c] uppercase text-xs tracking-wider">
                                         <th class="p-4 w-16 text-center">N°</th>
                                         <th class="p-4">Chant / Moment Liturgique</th>
+                                        <th class="p-4">Tonalité</th>
                                         <th class="p-4">Instruments Mobilisés</th>
                                         <th class="p-4 text-right">Partition</th>
                                     </tr>
@@ -511,6 +518,11 @@
                                         <tr class="hover:bg-[#f4eae7]/50 transition-colors">
                                             <td class="p-4 text-center font-semibold text-[#b89050] text-sm">${song.id}</td>
                                             <td class="p-4 font-bold text-[#2c2522] cursor-pointer hover:text-[#b89050] transition-colors" onclick="selectSongAndSwitch(${song.id})">${song.title}</td>
+                                            <td class="p-4">
+                                                <span class="inline-flex items-center px-2.5 py-1 bg-[#fcf8f2] text-[#b89050] font-bold rounded-lg text-xs border border-[#e8d5d1]">
+                                                    🎼 ${song.key}
+                                                </span>
+                                            </td>
                                             <td class="p-4">
                                                 <div class="flex flex-wrap gap-1.5">
                                                     ${song.instruments.map(inst => `
@@ -557,19 +569,25 @@
                                     <tr class="bg-[#fcf8f2] border-b border-[#e8d5d1] text-[#4a403c] uppercase text-xs tracking-wider">
                                         <th class="p-4 w-16 text-center">N°</th>
                                         <th class="p-4">Chant / Moment Liturgique</th>
+                                        <th class="p-4">Tonalité</th>
                                         <th class="p-4">Voix / Rôle à Jouer</th>
                                         <th class="p-4 text-right">Partition</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-stone-100">
                                     ${activeSongs.length === 0 ? `
-                                        <tr><td colspan="4" class="p-8 text-center text-stone-400 italic">Aucune intervention prévue pour cet instrument. Profitez du spectacle ! 🥳</td></tr>
+                                        <tr><td colspan="5" class="p-8 text-center text-stone-400 italic">Aucune intervention prévue pour cet instrument. Profitez du spectacle ! 🥳</td></tr>
                                     ` : activeSongs.map(song => {
                                         const role = instVoices[song.id];
                                         return `
                                             <tr class="hover:bg-[#f4eae7]/50 transition-colors">
                                                 <td class="p-4 text-center font-semibold text-[#b89050] text-sm">${song.id}</td>
                                                 <td class="p-4 font-bold text-[#2c2522] cursor-pointer hover:text-[#b89050] transition-colors" onclick="selectSongAndSwitch(${song.id})">${song.title}</td>
+                                                <td class="p-4">
+                                                    <span class="inline-flex items-center px-2.5 py-1 bg-[#fcf8f2] text-[#b89050] font-bold rounded-lg text-xs border border-[#e8d5d1]">
+                                                        🎼 ${song.key}
+                                                    </span>
+                                                </td>
                                                 <td class="p-4">
                                                     <span class="inline-flex items-center px-3 py-1 bg-[#f4eae7] text-[#7a3e4c] rounded-full text-xs font-bold uppercase tracking-wider border border-[#e8d5d1] shadow-xs">
                                                         ${role}
@@ -622,7 +640,10 @@
                                                     ${song.id}
                                                 </span>
                                                 <div>
-                                                    <h4 class="text-lg font-bold text-[#2c2522] cursor-pointer hover:text-[#b89050] transition-colors" onclick="selectSong(${song.id})">${song.title}</h4>
+                                                    <div class="flex items-center gap-2">
+                                                        <h4 class="text-lg font-bold text-[#2c2522] cursor-pointer hover:text-[#b89050] transition-colors" onclick="selectSong(${song.id})">${song.title}</h4>
+                                                        <span class="px-2.5 py-0.5 bg-[#fcf8f2] text-[#b89050] font-bold rounded-full text-xs border border-[#e8d5d1]">🎼 ${song.key}</span>
+                                                    </div>
                                                     <p class="text-xs text-[#4a403c] font-medium">${instDetails.length} pupitre(s) / voix mobilisé(s)</p>
                                                 </div>
                                             </div>
@@ -665,9 +686,12 @@
                         <div class="bg-white p-8 md:p-10 rounded-3xl custom-shadow border border-[#e8d5d1] space-y-6">
                             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-stone-100">
                                 <div>
-                                    <div class="flex items-center gap-3 mb-2">
+                                    <div class="flex flex-wrap items-center gap-2.5 mb-2">
                                         <span class="px-3 py-1 bg-[#f4eae7] text-[#7a3e4c] font-extrabold rounded-full text-xs tracking-wide border border-[#e8d5d1]">
                                             Pièce Liturgique N° ${song.id}
+                                        </span>
+                                        <span class="px-3 py-1 bg-[#fcf8f2] text-[#b89050] font-bold rounded-full text-xs border border-[#e8d5d1]">
+                                            🎼 Tonalité : ${song.key}
                                         </span>
                                         <span class="text-xs text-[#4a403c] font-medium">✨ Messe de Mariage</span>
                                     </div>
