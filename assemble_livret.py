@@ -1,4 +1,4 @@
-﻿import os
+import os
 import pymupdf
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
@@ -24,7 +24,7 @@ SONGS_DATA = [
         "key": "Libre / Improvisation",
         "instruments": "Harmonium (Accompagnement)",
         "file": None,
-        "target_page": 2
+        "target_page": None
     },
     {
         "id": 2,
@@ -32,7 +32,7 @@ SONGS_DATA = [
         "key": "Mi mineur (1#)",
         "instruments": "Chœur, Flûte, Saxo, Vcelle, Cajón",
         "file": "02 - Debout resplendis.pdf",
-        "target_page": 3
+        "target_page": 2
     },
     {
         "id": 3,
@@ -40,7 +40,7 @@ SONGS_DATA = [
         "key": "Ré mineur (1b)",
         "instruments": "Chœur, Harmonium",
         "file": "03 - Messe_Saint_Jean (Gloria+Agnus).pdf",
-        "target_page": 4
+        "target_page": 3
     },
     {
         "id": 4,
@@ -48,7 +48,7 @@ SONGS_DATA = [
         "key": "Ré mineur (1b)",
         "instruments": "Chœur (A/B) + Solo (S), Vcelle",
         "file": "04 - louez-le-seigneur-Psaume 148.pdf",
-        "target_page": 9
+        "target_page": 8
     },
     {
         "id": 5,
@@ -56,7 +56,7 @@ SONGS_DATA = [
         "key": "Sol mineur (2b) [capo 3]",
         "instruments": "Chœur, Saxo, Cajón, Guitare",
         "file": "05 - Resucito.pdf",
-        "target_page": 12
+        "target_page": 11
     },
     {
         "id": 6,
@@ -64,7 +64,7 @@ SONGS_DATA = [
         "key": "Fa majeur (1b)",
         "instruments": "Chœur, Violon, Flûte, Vcelle",
         "file": "06 - Esprit_de_lumiere_esprit_createur.pdf",
-        "target_page": 13
+        "target_page": 12
     },
     {
         "id": 7,
@@ -72,7 +72,7 @@ SONGS_DATA = [
         "key": "La mineur (0)",
         "instruments": "Chœur, Saxophone",
         "file": "07 - Laudate_Dominum_Taize.pdf",
-        "target_page": 15
+        "target_page": 14
     },
     {
         "id": 8,
@@ -80,7 +80,7 @@ SONGS_DATA = [
         "key": "Mi mineur (1#)",
         "instruments": "Chœur, Violon, Violoncelle",
         "file": "08 - Accueille aux creux de tes mains - 4 voix mixtes.pdf",
-        "target_page": 17
+        "target_page": 16
     },
     {
         "id": 9,
@@ -88,7 +88,7 @@ SONGS_DATA = [
         "key": "Mib majeur (3b)",
         "instruments": "Chœur & Voix solo, Violoncelle",
         "file": "09 - Vivre_d_amour.pdf",
-        "target_page": 18
+        "target_page": 17
     },
     {
         "id": 10,
@@ -96,7 +96,7 @@ SONGS_DATA = [
         "key": "La mineur (0) [éolien]",
         "instruments": "Chœur, Violon, Vcelle, Cajón",
         "file": "10 - sanctus_de_saint_paul.pdf",
-        "target_page": 19
+        "target_page": 18
     },
     {
         "id": 11,
@@ -104,8 +104,8 @@ SONGS_DATA = [
         "key": "Ré mineur (1b)",
         "instruments": "Chœur, Harmonium",
         "file": "11 - Messe_Saint_Jean (Gloria+Agnus).pdf",
-        "target_page": 20,
-        "agnus_page": 24
+        "target_page": 19,
+        "agnus_page": 23
     },
     {
         "id": 12,
@@ -113,7 +113,7 @@ SONGS_DATA = [
         "key": "Mi mineur (1#)",
         "instruments": "Chœur, Harmonium",
         "file": "12 - tu fais ta demeure en nous.pdf",
-        "target_page": 25
+        "target_page": 24
     },
     {
         "id": 13,
@@ -121,7 +121,7 @@ SONGS_DATA = [
         "key": "Mi mineur (1#)",
         "instruments": "Chœur, Violon, Violoncelle",
         "file": "13 - Marie_Mere_de_Dieu.pdf",
-        "target_page": 26
+        "target_page": 25
     },
     {
         "id": 14,
@@ -129,7 +129,7 @@ SONGS_DATA = [
         "key": "Ré mineur (1b)",
         "instruments": "Chœur, Vlon, Vcelle, Sax, Cajón, Guit.",
         "file": "14 - Pour-tes-merveilles.pdf",
-        "target_page": 27
+        "target_page": 26
     }
 ]
 
@@ -226,6 +226,16 @@ def build_front_matter():
         alignment=1
     )
 
+    style_cell_page_none = ParagraphStyle(
+        'CellPageNone',
+        parent=styles['Normal'],
+        fontName='Helvetica-Oblique',
+        fontSize=6.8,
+        leading=8.5,
+        textColor=COLOR_TEXT_MUTED,
+        alignment=1
+    )
+
     style_th = ParagraphStyle(
         'TableHead',
         parent=styles['Normal'],
@@ -253,21 +263,26 @@ def build_front_matter():
     ]]
 
     for song in SONGS_DATA:
-        p_str = f"p. {song['target_page']}"
-        if song.get('agnus_page'):
-            p_str = f"p. {song['target_page']}<br/><font size=6.5 color='#b89050'>(Agnus p. {song['agnus_page']})</font>"
-        
+        if song.get('target_page'):
+            p_str = f"p. {song['target_page']}"
+            if song.get('agnus_page'):
+                p_str = f"p. {song['target_page']}<br/><font size=6.5 color='#b89050'>(Agnus p. {song['agnus_page']})</font>"
+            p_cell = Paragraph(p_str, style_cell_page)
+        else:
+            p_str = "Sans partition /<br/>Harmonium seul"
+            p_cell = Paragraph(p_str, style_cell_page_none)
+
         table_data.append([
             Paragraph(f"<b>{song['id']:02d}</b>", style_cell_num),
             Paragraph(song['title'], style_cell_title),
             Paragraph(song['key'], style_cell_key),
             Paragraph(song['instruments'], style_cell_inst),
-            Paragraph(p_str, style_cell_page)
+            p_cell
         ])
 
     toc_table = Table(
         table_data,
-        colWidths=[26, 148, 104, 185, 60],
+        colWidths=[24, 142, 98, 179, 80],
         repeatRows=1
     )
 
@@ -339,122 +354,6 @@ def build_front_matter():
     ]))
     elements.append(info_box)
 
-    elements.append(PageBreak())
-
-    # --- PAGE 2: INTRODUCTION CHANT 1 ---
-    style_intro_badge = ParagraphStyle(
-        'IntroBadge',
-        parent=styles['Normal'],
-        fontName='Helvetica-Bold',
-        fontSize=9.5,
-        leading=12,
-        textColor=COLOR_GOLD,
-        alignment=0,
-        spaceAfter=4
-    )
-
-    style_intro_title = ParagraphStyle(
-        'IntroTitle',
-        parent=styles['Normal'],
-        fontName='Helvetica-Bold',
-        fontSize=23,
-        leading=27,
-        textColor=COLOR_BURGUNDY,
-        alignment=0,
-        spaceAfter=5
-    )
-
-    style_intro_sub = ParagraphStyle(
-        'IntroSub',
-        parent=styles['Normal'],
-        fontName='Helvetica',
-        fontSize=11,
-        leading=15,
-        textColor=COLOR_TEXT_MAIN,
-        alignment=0,
-        spaceAfter=12
-    )
-
-    style_section_h = ParagraphStyle(
-        'SectionH',
-        parent=styles['Normal'],
-        fontName='Helvetica-Bold',
-        fontSize=11.5,
-        leading=15,
-        textColor=COLOR_BURGUNDY,
-        spaceBefore=10,
-        spaceAfter=4
-    )
-
-    style_body = ParagraphStyle(
-        'IntroBody',
-        parent=styles['Normal'],
-        fontName='Helvetica',
-        fontSize=9,
-        leading=13,
-        textColor=COLOR_TEXT_MAIN,
-        spaceAfter=6
-    )
-
-    style_body_bold = ParagraphStyle(
-        'IntroBodyBold',
-        parent=styles['Normal'],
-        fontName='Helvetica-Bold',
-        fontSize=9,
-        leading=13,
-        textColor=COLOR_BURGUNDY
-    )
-
-    elements.append(Paragraph("OUVERTURE LITURGIQUE — PIÈCE N° 01", style_intro_badge))
-    elements.append(Paragraph("1. Entrée (Harmonium)", style_intro_title))
-    elements.append(Paragraph("Mariage de Marguerite & Antoine — Célébration Liturgique", style_intro_sub))
-    elements.append(HRFlowable(width="100%", thickness=1.5, color=COLOR_GOLD, spaceBefore=0, spaceAfter=12))
-
-    card_data = [
-        [Paragraph("<b>Instrument & Titulaire :</b>", style_body_bold), Paragraph("Harmonium / Orgue d'accompagnement", style_body)],
-        [Paragraph("<b>Moment liturgique :</b>", style_body_bold), Paragraph("Accueil de l'assemblée, entrée du cortège puis entrée solennelle de la mariée", style_body)],
-        [Paragraph("<b>Tonalité recommandée :</b>", style_body_bold), Paragraph("<b>Libre / Improvisation</b> (majeur, solennel, chaleureux et recueilli)", style_body)],
-        [Paragraph("<b>Transition harmonique :</b>", style_body_bold), Paragraph("Prévoir une cadence ou modulation douce vers <b>Mi mineur</b> (Mim) pour enchaîner directement sur le chant d'entrée de l'assemblée <i>Debout resplendis</i> (pièce n° 02)", style_body)],
-        [Paragraph("<b>Durée indicative :</b>", style_body_bold), Paragraph("Environ 3 à 5 minutes selon le temps de placement et la procession d'entrée", style_body)]
-    ]
-    card_table = Table(card_data, colWidths=[155, 368])
-    card_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, -1), COLOR_BG_WARM),
-        ('BOX', (0, 0), (-1, -1), 1, COLOR_GOLD_LIGHT),
-        ('INNERGRID', (0, 0), (-1, -1), 0.5, COLOR_BORDER),
-        ('TOPPADDING', (0, 0), (-1, -1), 5),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
-        ('LEFTPADDING', (0, 0), (-1, -1), 8),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 8),
-    ]))
-    elements.append(card_table)
-
-    elements.append(Spacer(1, 10))
-    elements.append(Paragraph("Directives & Conseils d'Interprétation", style_section_h))
-    elements.append(Paragraph("• <b>Phase 1 — Accueil & Recueillement :</b> Alors que les invités prennent place dans l'église, instaurer une atmosphère lumineuse, paisible et recueillie.", style_body))
-    elements.append(Paragraph("• <b>Phase 2 — Entrée du cortège & de Marguerite :</b> À l'ouverture des portes et dès que le cortège s'élance, déployer un jeu plus ample, majestueux et jubilatoire pour accompagner la procession jusqu'à l'autel.", style_body))
-    elements.append(Paragraph("• <b>Phase 3 — Résolution vers le chant 2 :</b> Lorsque les mariés sont installés, amener une cadence finale claire ou un accord tenu en <b>Mi mineur</b> (ou <b>Si7</b>) servant d'accord de départ parfait au chœur et aux instruments pour <i>Debout resplendis</i>.", style_body))
-
-    elements.append(Spacer(1, 10))
-    elements.append(Paragraph("Espace Notes & Choix de Répertoire de l'Organiste", style_section_h))
-
-    notes_box = Table([
-        [Paragraph("<i>Pièce choisie / Thème :</i> ........................................................................................................................................", style_body)],
-        [Paragraph("<i>Enregistrement / Jeux :</i> .............................................................................................................................................", style_body)],
-        [Paragraph("<i>Notes de jeu :</i> ..........................................................................................................................................................", style_body)],
-        [Paragraph(".....................................................................................................................................................................................", style_body)],
-        [Paragraph(".....................................................................................................................................................................................", style_body)],
-    ], colWidths=[523])
-    notes_box.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#fcfcfc')),
-        ('BOX', (0, 0), (-1, -1), 1, COLOR_BORDER),
-        ('TOPPADDING', (0, 0), (-1, -1), 7),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 7),
-        ('LEFTPADDING', (0, 0), (-1, -1), 10),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 10),
-    ]))
-    elements.append(notes_box)
-
     doc.build(elements)
     print("Front matter generated successfully.")
 
@@ -464,7 +363,7 @@ def assemble_complete_booklet(output_pdf="Livret_Partitions_Mariage.pdf"):
     final_doc = pymupdf.open()
     front_doc = pymupdf.open("temp_front_matter.pdf")
 
-    # Insert page 1 (TOC) and page 2 (Harmonium)
+    # Insert page 1 (TOC)
     final_doc.insert_pdf(front_doc)
 
     partition_files = [
@@ -493,6 +392,9 @@ def assemble_complete_booklet(output_pdf="Livret_Partitions_Mariage.pdf"):
     toc_page = final_doc[0]
 
     for song in SONGS_DATA:
+        if not song.get("target_page"):
+            continue
+
         target_idx = song["target_page"] - 1 # 0-indexed
         
         # Search for the song title on the TOC page
@@ -500,8 +402,8 @@ def assemble_complete_booklet(output_pdf="Livret_Partitions_Mariage.pdf"):
         rects = toc_page.search_for(title_term)
         if rects:
             r = rects[0]
-            # Link across the full row from x=36 to x=500
-            row_rect = pymupdf.Rect(36, r.y0 - 3, 500, r.y1 + 3)
+            # Link across the full row from x=36 to x=559
+            row_rect = pymupdf.Rect(36, r.y0 - 3, 559, r.y1 + 3)
             toc_page.insert_link({
                 "kind": pymupdf.LINK_GOTO,
                 "page": target_idx,
@@ -518,7 +420,7 @@ def assemble_complete_booklet(output_pdf="Livret_Partitions_Mariage.pdf"):
                         "from": pymupdf.Rect(pr.x0 - 2, pr.y0 - 2, pr.x1 + 2, pr.y1 + 2)
                     })
 
-        # Special link for Agnus p. 24 on song 11
+        # Special link for Agnus p. 23 on song 11
         if song.get("agnus_page"):
             agnus_rects = toc_page.search_for(f"Agnus p. {song['agnus_page']}")
             if agnus_rects:
@@ -532,26 +434,29 @@ def assemble_complete_booklet(output_pdf="Livret_Partitions_Mariage.pdf"):
     # Add PDF Outlines (Signets / Bookmarks)
     toc_outlines = [
         [1, "Programme & Table des matières", 1],
-        [1, "01. Entrée — Harmonium [Libre / Impr.]", 2],
-        [1, "02. Debout resplendis [Mi mineur]", 3],
-        [1, "03. Messe St-Jean : Gloria [Ré mineur]", 4],
-        [1, "04. Psaume 148 (Louez le Seigneur) [Ré mineur]", 9],
-        [1, "05. Resucito [Sol mineur]", 12],
-        [1, "06. Esprit de lumière [Fa majeur]", 13],
-        [1, "07. Laudate Dominum (Taizé) [La mineur]", 15],
-        [1, "08. Accueille au creux de tes mains [Mi mineur]", 17],
-        [1, "09. Vivre d’amour [Mib majeur]", 18],
-        [1, "10. Sanctus — Messe St-Paul [La mineur]", 19],
-        [1, "11. Messe St-Jean : Agnus [Ré mineur]", 20],
-        [2, "Agnus Dei (Partie chantée)", 24],
-        [1, "12. Tu fais ta demeure en nous [Mi mineur]", 25],
-        [1, "13. Marie, Mère de Dieu [Mi mineur]", 26],
-        [1, "14. Pour tes merveilles [Ré mineur]", 27]
+        [1, "02. Debout resplendis [Mi mineur]", 2],
+        [1, "03. Messe St-Jean : Gloria [Ré mineur]", 3],
+        [1, "04. Psaume 148 (Louez le Seigneur) [Ré mineur]", 8],
+        [1, "05. Resucito [Sol mineur]", 11],
+        [1, "06. Esprit de lumière [Fa majeur]", 12],
+        [1, "07. Laudate Dominum (Taizé) [La mineur]", 14],
+        [1, "08. Accueille au creux de tes mains [Mi mineur]", 16],
+        [1, "09. Vivre d’amour [Mib majeur]", 17],
+        [1, "10. Sanctus — Messe St-Paul [La mineur]", 18],
+        [1, "11. Messe St-Jean : Agnus [Ré mineur]", 19],
+        [2, "Agnus Dei (Partie chantée)", 23],
+        [1, "12. Tu fais ta demeure en nous [Mi mineur]", 24],
+        [1, "13. Marie, Mère de Dieu [Mi mineur]", 25],
+        [1, "14. Pour tes merveilles [Ré mineur]", 26]
     ]
 
     final_doc.set_toc(toc_outlines)
 
     final_doc.save(output_pdf, garbage=4, deflate=True)
+    final_doc.close()
+    front_doc.close()
+    if os.path.exists("temp_front_matter.pdf"):
+        os.remove("temp_front_matter.pdf")
     print(f"Livret generated successfully: {output_pdf}")
 
 if __name__ == "__main__":
