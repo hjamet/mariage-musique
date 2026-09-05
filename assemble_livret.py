@@ -304,56 +304,6 @@ def build_front_matter():
     toc_table.setStyle(TableStyle(t_style))
     elements.append(toc_table)
 
-    elements.append(Spacer(1, 8))
-    style_notice = ParagraphStyle(
-        'Notice',
-        parent=styles['Normal'],
-        fontName='Helvetica-Oblique',
-        fontSize=7.5,
-        leading=9.5,
-        textColor=COLOR_TEXT_MUTED,
-        alignment=1
-    )
-    elements.append(Paragraph("★ <i>Astuce : Chaque ligne de cette table des matières et chaque signet PDF sont cliquables pour naviguer instantanément.</i>", style_notice))
-
-    elements.append(Spacer(1, 10))
-
-    # Musician Info Box at bottom of TOC
-    style_info_h = ParagraphStyle(
-        'InfoHead',
-        parent=styles['Normal'],
-        fontName='Helvetica-Bold',
-        fontSize=8.5,
-        leading=11,
-        textColor=COLOR_BURGUNDY
-    )
-    style_info_body = ParagraphStyle(
-        'InfoBody',
-        parent=styles['Normal'],
-        fontName='Helvetica',
-        fontSize=7.5,
-        leading=10.5,
-        textColor=COLOR_TEXT_MAIN
-    )
-
-    info_box = Table([
-        [Paragraph("<b>Recommandations & Repères pour l'Équipe Musicale :</b>", style_info_h)],
-        [Paragraph("• <b>Accordage & Diapason :</b> Diapason standard La 440 Hz pour l'ensemble des instruments (harmonium/orgue, cordes, flûte, saxo, guitare).<br/>"
-                   "• <b>Équilibre acoustique :</b> Veiller au dosage délicat des percussions (cajón) et cuivres/bois pour laisser prédominer les voix et le texte liturgique.<br/>"
-                   "• <b>Enchaînement clé :</b> L'entrée à l'harmonium (n° 01) prépare l'accord de départ (Mi mineur / Si7) pour l'entrée du chœur <i>Debout resplendis</i> (n° 02).<br/>"
-                   "• <b>Fiches pupitres interactives :</b> Retrouvez le détail exact de vos interventions sur le portail web de coordination.", style_info_body)]
-    ], colWidths=[523])
-
-    info_box.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, -1), COLOR_BG_WARM),
-        ('BOX', (0, 0), (-1, -1), 1, COLOR_GOLD_LIGHT),
-        ('TOPPADDING', (0, 0), (-1, -1), 6),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
-        ('LEFTPADDING', (0, 0), (-1, -1), 8),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 8),
-    ]))
-    elements.append(info_box)
-
     doc.build(elements)
     print("Front matter generated successfully.")
 
